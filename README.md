@@ -23,8 +23,25 @@ an absent value does not imply zero or an unlimited allowance. Historical or
 closed titles remain available for comparison but are marked as not accepting
 new submissions.
 
-Sourced annual JIFs are available for 238 journals and five-year JIFs for 164,
-with their actual metric years retained. Indexed-output evidence covers
+The September 15-16, 2026 journal-by-journal history audit checked all 457
+catalog titles. Annual JIF evidence now contains 5,131 journal-year values across
+431 journals, up from 1,441 values across 239 journals. Of these, 335 journals
+have at least ten metric years and 54 have all fifteen years from 2011 through
+2025. The New England Journal of Medicine, The Lancet, and Nature Reviews Cancer
+each have complete 2011-2025 series. The remaining 26 titles have no verified
+annual value in this public-source pass; that does not prove they have no JIF.
+
+Annual values retain metric years, individual source links, source type, review
+notes, and discrepancy disclosures. Clarivate corrections and publisher/society
+evidence are preferred; many older values come from explicitly labelled
+secondary annual tables or institutional reproductions of JCR tables. This is
+not a licensed JCR database or a certification of every historical value.
+Unresolved disagreements remain visible and missing years are not interpolated.
+Annual-history CSV downloads are available for individual journals and comparisons.
+
+Five-year JIFs are available for 164 journals, with their actual metric years
+retained; these are separate source-reported metrics, not averages of annual JIFs.
+Indexed-output evidence covers
 2021-2026 for 454 titles; three unresolved identifiers remain unavailable, and
 2026 is year-to-date. The recent-paper dataset
 contains 43,537 PubMed records across 449 journals. Some sampled records lack
