@@ -4,8 +4,9 @@ A browser-based journal comparison and submission-planning tool for cancer,
 genetics, genomics, biology, bioinformatics, clinical medicine, and epidemiology.
 
 The application is `index.html`. Journal data, charts, icons, and imagery are
-embedded; no R installation or server-side application is required. Official
-source links require internet access.
+embedded; the core explorer requires no R installation or application server.
+Shared analytics uses the separate service described below. Official source links
+and shared statistics require internet access.
 
 ## September 2026 catalog
 
@@ -23,9 +24,10 @@ closed titles remain available for comparison but are marked as not accepting
 new submissions.
 
 Sourced annual JIFs are available for 238 journals and five-year JIFs for 164,
-with their actual metric years retained. Completed indexed-output queries cover
-2021-2026 for all 457 titles; 2026 is year-to-date. The recent-paper dataset
-contains 41,937 PubMed records across 433 journals. Some sampled records lack
+with their actual metric years retained. Indexed-output evidence covers
+2021-2026 for 454 titles; three unresolved identifiers remain unavailable, and
+2026 is year-to-date. The recent-paper dataset
+contains 43,537 PubMed records across 449 journals. Some sampled records lack
 the date pairs needed for an interval estimate, and indexed counts are not a
 census of all publisher output.
 
@@ -52,11 +54,21 @@ census of all publisher output.
 
 ## Privacy
 
-This build has no shared analytics endpoint. The app counts opens only in the
-current browser's local storage; its country map does not infer visitors.
-Hosting-provider logging is separate from application analytics. Shared counts
-and the visitor map explicitly remain unavailable until a backend is connected;
-previous visits cannot be reconstructed.
+The hosted build connects to a dedicated Cloudflare Worker and D1 database for
+shared page views, cumulative distinct-browser counts, and approximate visitor
+countries. Counts start with activation on September 15, 2026; earlier visits
+were not recorded and cannot be reconstructed. Distinct browsers are estimates,
+not verified people: different devices and cleared storage can add identities.
+
+The browser sends random browser/event identifiers. The database stores only
+keyed hashes, country codes, receipt timestamps, and counts, not raw IP addresses,
+names, precise locations, page URLs, or referrers. Cloudflare processes connection
+metadata separately under its hosting policies; its default invocation logging
+is currently enabled. No application request-body logging is used.
+Use the footer checkbox to exclude this browser from future shared counting.
+The separate local-open count remains only in browser storage. Local-file copies
+read shared totals without reporting visits. Refreshing statistics does not add
+a page view. Failed analytics remains visibly unavailable, never invented.
 
 ## GitHub Pages
 
