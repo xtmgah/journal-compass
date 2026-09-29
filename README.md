@@ -10,26 +10,27 @@ and shared statistics require internet access.
 
 ## September 2026 catalog
 
-The catalog contains 458 journals, including Cancer Gene Therapy. Both requested Google Scholar profiles were
+The catalog contains 469 journals, including Cancer Gene Therapy and the Wiley
+Advanced life and health sciences additions below. Both requested Google Scholar profiles were
 traversed to the end: 678 displayed entries in one profile and 2,020 in the other.
 All 120 and 251 screened journal venues, respectively, map to the catalog or a
 documented successor title. These are profile-discovery counts, not independently
 verified authorship counts. Books, preprints, education/news products, ambiguous
 venue labels, and non-journal records are not treated as research journals.
 
-Scope descriptions are present for all 458 titles, first-decision evidence for
-214, and article-format guidance for 302. Evidence coverage differs by field;
+Scope descriptions are present for all 469 titles, first-decision evidence for
+220, and article-format guidance for 313. Evidence coverage differs by field;
 an absent value does not imply zero or an unlimited allowance. Historical or
 closed titles remain available for comparison but are marked as not accepting
 new submissions.
 
 The September 15-16, 2026 journal-by-journal history audit checked all 457
-catalog titles; Cancer Gene Therapy was subsequently added with a complete history.
-Annual JIF evidence now contains 5,146 journal-year values across
-432 journals, up from 1,441 values across 239 journals. Of these, 336 journals
+catalog titles; Cancer Gene Therapy and the Wiley titles were subsequently audited.
+Annual JIF evidence now contains 5,185 journal-year values across
+437 journals, up from 1,441 values across 239 journals. Of these, 338 journals
 have at least ten metric years and 55 have all fifteen years from 2011 through
 2025. The New England Journal of Medicine, The Lancet, and Nature Reviews Cancer
-each have complete 2011-2025 series. The remaining 26 titles have no verified
+each have complete 2011-2025 series. The remaining 32 titles have no verified
 annual value in this public-source pass; that does not prove they have no JIF.
 
 Annual values retain metric years, individual source links, source type, review
@@ -42,13 +43,37 @@ Annual-history CSV downloads are available for individual journals and compariso
 
 Five-year JIFs are available for 165 journals, with their actual metric years
 retained; these are separate source-reported metrics, not averages of annual JIFs.
-Indexed-output evidence covers
-2021-2026 for 454 titles; three unresolved identifiers remain unavailable and
-Cancer Gene Therapy has no embedded indexed-output sample yet. Data for
+Indexed-output evidence spans
+2021-2026 for 465 titles, with some missing journal-years. Three unresolved
+identifiers remain unavailable and Cancer Gene Therapy has no embedded
+indexed-output sample yet. The September 28 refresh completed all six years
+for ten Wiley additions. Advanced Science has a completed 2021 query; its
+2022-2026 page requests failed after retries and remain unavailable, not zero.
+The collector supports smaller pages through `EUROPE_PMC_PAGE_SIZE` for
+future targeted retries and preserves previous evidence after failures. Data for
 2026 is year-to-date. The recent-paper dataset
-contains 43,537 PubMed records across 449 journals. Some sampled records lack
+contains 44,115 PubMed records across 455 journals. Some sampled records lack
 the date pairs needed for an interval estimate, and indexed counts are not a
 census of all publisher output.
+
+### September 28 Wiley Advanced additions
+
+The catalog now includes Advanced Science and all ten titles listed in the
+portfolio's Life & Health Sciences section: Advanced Healthcare Materials,
+Advanced Therapeutics, Advanced NanoBiomed Research, Advanced Biology,
+Advanced Genetics, Advanced Oncology, Advanced Brain, Advanced Healthy Aging,
+Advanced Immunology, and Advanced Medicine.
+
+All eleven have official identity, scope, editorial, author-guidance and
+submission-link evidence. Five have verified annual JIF histories; six have
+dated publisher first-decision medians. The newer titles and Advanced Genetics
+remain without a verified annual JIF, and no five-year JIF was verified for these
+additions. These are evidence gaps, not zero-valued metrics. Typical manuscript
+lengths are distinguished from hard limits. Advanced Biology's 2020-2021
+history is explicitly attributed to predecessor Advanced Biosystems; the
+documented rename and overlapping-title caveat are retained in source notes.
+Advanced Healthcare Materials' inaugural JIF has a small published discrepancy
+(4.880 versus 4.882), disclosed alongside the retained contemporary value.
 
 ## Calls for papers
 
@@ -56,6 +81,12 @@ The September 16, 2026 snapshot audits all 212 eligible journals and retains
 744 verified journal opportunities across 59 journals. Twelve research/review
 agents contributed to this release. Ninety journal audits identify verification
 or access limitations; partial-directory coverage is disclosed individually.
+
+The September 28 snapshot contains 722 active opportunities across 60 journals,
+with all 214 eligible journals audited. This update adds two official Advanced
+Science calls and two eligible-journal audits. Expired September deadlines are
+removed rather than carried forward. One new call is restricted to commissioned contributions,
+which is stated on its visible status label; contact the editors before submitting.
 
 The Calls for papers module follows Explore in the main navigation. It contains
 official, source-backed calls grouped by journal, with topic search, deadline
@@ -96,7 +127,7 @@ acceptance are never inferred or guaranteed.
 - Journal instructions can change; consult the linked official guidance before
   submitting a manuscript.
 - Publisher and society families include JAMA, NEJM, Lancet, ASH, AACR,
-  AAAS/Science, Cell Press and Nature/EMBO. Education and news products are
+  AAAS/Science, Cell Press, Nature/EMBO and Wiley Advanced. Education and news products are
   excluded from the journal catalog.
 - New titles may have a current sourced metric without a complete historical
   series. Each displayed JIF retains its actual reporting year.
