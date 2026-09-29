@@ -6,6 +6,7 @@ The standalone HTML embeds the following assets:
 | --- | --- |
 | D3 7.9.0 | ISC; see `D3-LICENSE` |
 | Lucide 0.468.0 | ISC; see `LUCIDE-LICENSE` |
+| MiniSearch 7.2.0 | MIT; see `MINISEARCH-LICENSE` |
 | Roboto Condensed | SIL Open Font License 1.1; see `RobotoCondensed-OFL.txt` |
 | Natural Earth country boundaries | Public domain; https://www.naturalearthdata.com/about/terms-of-use/ |
 
@@ -15,3 +16,8 @@ approximate visualization and do not express a territorial position.
 
 Journal metric and submission-information sources are linked in the application.
 Library licenses do not cover those third-party data.
+
+Journal Match additionally uses same-origin, separately hosted model/runtime
+assets under `journal_explorer_assets/match/`. Their pinned versions, source
+revisions, integrity hashes and licenses are recorded in that directory's
+`manifest.json` and `licenses/` folder. These assets do not contain manuscripts.

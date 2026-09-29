@@ -113,6 +113,39 @@ Checks older than 30 days display a reminder to reconfirm status. Cross-journal
 collections are listed under each participating eligible journal. Fees and
 acceptance are never inferred or guaranteed.
 
+## Journal Match
+
+Journal Match compares a pasted title or abstract with the catalog's curated
+journal scopes. It offers article-format, minimum JIF, and reported first-decision
+filters, explains scope overlap, and sends selected journals directly to Compare.
+Closed titles and non-journal resources are excluded from suggestions.
+
+The hosted edition runs a quantized sentence-embedding model on the visitor's
+device, in a dedicated browser worker. Its JavaScript, WASM, and model files are
+served from this same GitHub Pages site; there is no remote inference API or
+third-party model script. The first match downloads reusable model assets.
+If model loading fails, or the standalone HTML is opened without the companion
+assets, the bundled MiniSearch engine provides local keyword matching. The active
+method is shown rather than silently claiming semantic matching. The first
+semantic run downloads about 39 MB of reusable assets. Sourced fee and access
+guidance is shown where available; no price is inferred from missing data.
+
+Manuscript text and query embeddings are never sent to a server, written to
+browser storage, included in analytics, or placed in a shared link or downloaded
+HTML copy. They remain in tab memory only. Clear, Reset, reload, and navigation
+away from the document remove manuscript text and transient results from the app.
+Internal navigation between modules keeps the editor available until cleared.
+Downloaded model files may be cached; they contain no manuscript information.
+The separate visitor-counting service described below remains unchanged.
+
+Ranking reflects relative topic and scope fit, not acceptance probability,
+editorial priority, research quality, or novelty. Impact factor does not boost
+rank. Unknown article-format eligibility remains visibly unverified; only explicit
+incompatibilities are excluded. The first-decision filter uses the first sourced
+metric displayed for that journal, not a guessed peer-review duration. Definitions
+can differ between journals. English-language scope coverage and the finite
+catalog limit the suggestions, particularly for non-English or emerging topics.
+
 ## Interpretation
 
 - Missing data are unavailable, not zero.
