@@ -124,14 +124,41 @@ does not boost that journal, claim a fit probability, or change recommendations.
 Its derived evidence is cleared and excluded from shared/downloaded copies just
 like the main results.
 
-The model remains Experimental. The October 4 audit found just 90 training
-references for Nature Communications, with substantial date clustering. Its
-previously frozen test subset recovered the publication venue in only 2 of 8
-top-ten lists; that small sample is diagnostic, not a precise journal-wide
-accuracy estimate. A separate 40-journal development pilot did not establish
-an improvement from replacing MiniLM with BGE-small. No new model or claimed
-accuracy improvement is included in the interface update. No paid API or
-server-side manuscript processing has been introduced.
+The October 4 expanded acquisition contains 357,446 abstract-bearing records
+across 441 journals, including 5,995 from Nature Communications. It queried
+verified ISSNs for 2021 through October 3, 2026, with up to 1,000 newest OA-indexed
+papers per journal/year. This is a bounded convenience sample, not all published
+papers; OA status alone does not establish reuse permission. The model card
+records the final eligible training count, representative evidence-index size,
+and held-out results. Full training counts are distinct from downloadable
+reference counts. No paid API or server-side manuscript processing is used.
+
+The released model fits 198,872 eligible training papers across 429 journals,
+up from 16,714 papers across 422 journals. Nature Communications contributes
+3,695 training papers, up from 90. The browser index contains 65,323 representative
+paper citations; all eligible training papers contributed to the fitted profiles.
+
+On the same 16,309 fresh held-out papers across 356 journals, equal-journal
+top-five recovery increased from 43.68% to 48.12% and top-ten recovery from
+55.64% to 59.96%. Paper-weighted top-five recovery increased from 32.74% to
+39.42%. Nature Communications top-five recovery increased from 20.55% to 26.37%
+on 292 held-out papers, so broad multidisciplinary venues remain difficult.
+These measure recovery of the actual publication venue, not acceptance or the
+only appropriate submission destination. The older inspected regression set
+had nearly unchanged equal-journal top-five recovery (41.63% to 41.53%).
+
+Readiness remains Experimental: the fresh test covers 75.9% of catalog journals,
+only 49.5% meet the 30-training/5-test-paper support threshold, and no verified
+component ablation was run. More data improved this benchmark but did not meet
+all of the predeclared readiness checks or establish ChatGPT-level performance.
+
+Journal results have separate bordered cards. The interactive match map plots
+match rank on the horizontal axis and annual JIF on the vertical axis. Select a
+point to focus the corresponding journal's evidence; its chart button returns
+focus to that point. Keyboard selection is supported. Tooltips identify the JIF
+year, and missing JIFs are disclosed rather than plotted as zero. Impact factor
+does not raise a journal's matching rank. The chart and cards are transient and
+are cleared from shared/downloaded copies with the manuscript input.
 
 Journal Match learns journal publication profiles from a bounded sample of
 published titles and abstracts retrieved through Europe PMC. The abstract-first
@@ -143,12 +170,17 @@ Compare. Closed titles and non-journal resources are excluded from suggestions.
 The model combines a frozen sentence encoder with a journal head learned from
 licensed development papers. It is not a transformer fine-tuned on all published
 papers or a generative LLM agent. The interface labels it Experimental unless
-independent offline quality and coverage checks pass. Model coverage and measured
-top-1/5/10 recovery appear in the module, including the previous scope-matcher
-baseline. Held-out papers from unsupported journals count as misses; reuse rights
-limit public training, not the private test denominator. The 5% test partition is
-frozen before fitting, separate from 10% development validation. Date-boundary
-ties and duplicate identities are quarantined. Sparse classes remain disclosed.
+recorded offline quality and coverage checks pass. Model coverage and measured
+top-1/5/10 venue recovery appear in the module, comparing the previous and expanded
+published-paper models on the same fresh held-out papers. Unsupported journals
+and abstentions count as misses. The new test covers the acquired OA sample,
+including records that cannot be used for public model fitting; it is not a
+paywalled-literature benchmark. A 5% test target is frozen before fitting,
+separate from 10% development validation. Date-boundary ties and duplicate
+identities are quarantined, and historical holdouts remain protected. The older,
+previously inspected test is reported separately as regression evidence only.
+Sparse classes remain disclosed. The compatibility report filename below does
+not mean the release adapter independently reran the experiment.
 See the [model card](journal_explorer_assets/match/corpus/MODEL_CARD.md) and
 [aggregate evaluation](journal_explorer_assets/match/corpus/independent-validation.json).
 

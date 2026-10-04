@@ -1,143 +1,57 @@
-# Journal Match: Published-Paper Model
+# Expanded Journal Match Model
 
-## Intended Use
+Status: Experimental; quality or coverage checks not met. Adapter does not deploy automatically.
 
-Generate a research-journal shortlist from an English manuscript title and
-abstract. Inspect the supporting published papers, official scope, article
-eligibility, and submission guidance before choosing a journal. This model does
-not assess novelty, scientific rigor, clinical utility, acceptance probability,
-or whether a specific editor will send a manuscript for review.
+## Training and Evidence
 
-The interface marks the model Experimental unless its independent offline quality
-and coverage checks pass. Even passing those checks is not evidence of acceptance
-prediction or a uniquely correct submission recommendation.
+Frozen encoder: Xenova/all-MiniLM-L6-v2. Full licensed training: 198872 papers; indexed representative evidence: 65323 papers; fitted journals: 429/469. Full-training centroids, prototypes and optional ridge coefficients are retained. The evidence cap does not cap training.
 
-## Data
+## Untouched Holdout
 
-The bounded Europe PMC sample targets up to 160 abstract-bearing papers per active
-catalog journal: 40 in 2021-2022, 40 in 2023-2024, and 80 in 2025 through
-2026-10-03. Each window takes recent eligible records, not a random census.
-Queries and source records are checked against exact journal names and verified
-ISSNs. Indexing gaps, sparse/new journals, source failures, abstract availability,
-and reuse restrictions limit coverage. Research and review labels are retained.
+16309 newly unseen papers across 356 journals. Both models use the same full-catalog test denominator; unsupported targets, unembeddable papers and abstentions are misses. The baseline is the previous corpus-trained model, not a scope matcher.
 
-Raw records, abstracts, API caches, held-out query vectors, and individual test
-predictions are private build material and are not shipped to the website.
-Only explicitly supported CC BY, CC0, or public-domain development records enter
-the public learned model and paper index. Unknown licenses, noncommercial,
-no-derivative, and share-alike records are not treated as permission to publish
-an embedding. Public training-paper evidence retains source attribution, license
-links and modification notices; source content is not endorsed by NLM or Europe PMC.
+| Macro metric | Recall@1 | Recall@5 | Recall@10 | MRR@10 |
+| --- | --- | --- | --- | --- |
+| Expanded corpus | 0.20469616885557146 | 0.4812184436542601 | 0.5996158498566033 | 0.319815661555178 |
+| Previous corpus | 0.18729609816219206 | 0.43681882562586144 | 0.5564188927357306 | 0.2917317537379363 |
 
-## Learning
+Micro metrics and exact recorded comparison statistics are in independent-validation.json. Historical inspected-test results are explicitly regression-only and are excluded from main metrics and readiness gates. No ablation claim is made.
 
-- Frozen, quantized `Xenova/all-MiniLM-L6-v2`, revision
-  `751bff37182d3f1213fa05d7196b954e230abad9`, produces 384-dimensional embeddings.
-  This pretrained encoder is not a biomedical transformer fine-tuned here.
-- Input features are titles and abstracts, with explicit publisher/affiliation
-  boilerplate removed. Journal labels, author identities, impact factors and
-  acceptance/processing metrics are not semantic input features.
-- Training learns journal centroids and topic prototypes. A class-balanced,
-  L2-regularized ridge classifier is a competing learned journal head.
-- Separate development validation selects the production ranker and its settings
-  before the final held-out test. The model manifest records that choice.
-- Similar-paper citations come only from training records. They support topic
-  relevance, not proof that the journal will accept the submitted manuscript.
-- Low-support queries can abstain using validation-derived similarity thresholds.
-  This is a heuristic, not a validated general out-of-domain detector.
+## Readiness Checks
 
-The browser uses the same pinned encoder and token-window pooling protocol as the
-build. Quantized production weights are used in offline evaluation. Native CPU
-and browser WASM can differ slightly in floating-point results. The phrase-based
-study-design summary is a separate, conservative UI aid; it is not a generative
-LLM agent and does not determine the journal ranking.
+- declared_new_holdout_benchmark_gate: pass; observed true, required true.
+- catalog_journal_count: pass; observed 469, required 469.
+- test_document_count: pass; observed 16309, required 1000.
+- tested_journal_count: pass; observed 356, required 100.
+- no_macro_or_micro_recall_regression: pass; observed true, required true.
+- declared_paired_top5_gain_lower_bound: pass; observed 0.022181512746845787, required ">0".
+- paired_bootstrap_top5_gain_lower_bound: pass; observed 0.022596128154658387, required ">0".
+- macro_top5_gain: pass; observed 0.044399618028398646, required 0.01.
+- prediction_coverage: pass; observed 0.9852228830706972, required 0.95.
+- catalog_training_coverage: pass; observed 0.9147121535181236, required 0.8.
+- catalog_test_coverage: fail; observed 0.7590618336886994, required 0.8.
+- catalog_with_30_training_and_5_new_test_papers: fail; observed 0.4946695095948827, required 0.8.
+- component_ablation_available: fail; observed 0, required ">=1 verified ablation".
 
-## Evaluation
+Experimental only. These results do not establish broad superiority or production readiness.
 
-### Frozen Release: 2026-10-03
+## Sampling and Limitations
 
-The collected snapshot contains 67,792 records from 451 journals. After reuse,
-quality, attribution and split checks, fitting uses 16,714 papers across 422 of
-469 catalog journals. Model selection uses 1,659 separate development papers.
-The final test contains 3,363 papers across 437 journals, 4.96% of eligible
-deduplicated groups before boundary quarantine. It is not restricted to journals
-the trained model can represent. The selected ranker is the validation-tuned
-centroid/topic-prototype/article-neighbor model, not the competing ridge head.
+- Known publication venue is not acceptance probability or exclusive suitability.
+- New acquisition uses OPEN_ACCESS:Y, English research/review papers, and up to 1000 newest papers per journal per year in 2021-2026. Annual prefixes are not random or exhaustive for high-volume journals.
+- The untouched holdout measures unseen OA-indexed papers, not general publication or paywalled-paper performance. Test inclusion is license-unrestricted only within that OA sampling universe.
+- The older varied-license corpus was previously seen; historical test results are regression-only, never main metrics or readiness evidence.
+- OA status and authorship alone are not training or redistribution permission; documentary reuse rights are checked separately.
+- Adapter reuse-documentation checks cover public-index citations only; omitted training citations are not re-audited here.
+- Temporal cutoffs differ by journal; frozen encoder pretraining overlap is unknown.
+- This adapter checks recorded artifacts and memberships; it does not rerun or independently reproduce evaluation.
 
-Independent known-venue recovery, giving each tested journal equal weight:
+## Privacy
 
-| Rank threshold | Previous hybrid scope matcher | Published-paper model |
-| --- | ---: | ---: |
-| Top 1 | 9.2% | 18.1% |
-| Top 5 | 19.4% | 41.6% |
-| Top 10 | 22.7% | 53.2% |
+Public-index citation reuse documentation and partition membership were checked, not independently re-adjudicated. Omitted training citations were not re-audited by this adapter. Aggregate reports contain no paper-level test predictions or raw queries/abstracts. The model contains documented public training-paper citations only.
 
-Paper-weighted recovery is 18.4%, 42.3%, and 54.0%, respectively. These are
-measured offline results, not a claim of broad readiness or acceptance prediction.
-The independent quality gate **does not pass**: only 44.1% of catalog journals
-have at least 30 actual training papers, and 43.9% have adequate licensed
-training/test support, below the predeclared 80% thresholds. Experimental status
-therefore remains. The frozen acquisition catalog lacks discipline labels, so
-discipline-specific accuracy is unavailable in this release; article-type strata
-are reported. No parameters were changed using the final test results.
-The heuristic sanitizer is not perfect: source QA found two residual grant or
-open-access declaration suffixes without explicit journal labels. Contextual
-journal-name, study-site, and software-license mentions also remain audit warnings;
-these are not represented as fully cleared or used for post-test tuning.
+Corpus fingerprint: 531bdfbb19f47581bdcca4f8aa981d292ac32369f2bc004104bbf1666b297983 (canonical digest of the two frozen corpus input digests, not concatenated raw-file bytes).
 
-Exact model SHA-256:
-`e688a9c1580f0e4764621a62e2974de1a636093da9d35b8dad9daaaf2c79dd4d`.
+Frozen plan/split fingerprint: a9adc824245dfd2c03601099859ff0f99d22894cb9a8aaf242b56204afc60028.
 
-### Protocol
-
-The final corpus and split are frozen before fitting. Global connected-component
-deduplication links PMID, DOI, and normalized-title identities before filtering.
-Conflicting labels are quarantined. The newest floor(5%) of usable records per
-journal are held out; the preceding floor(10%) form development validation.
-Ties at date boundaries are quarantined rather than moved into earlier partitions.
-Very small journals may have no 5% test; they remain visible in coverage reports.
-This is a within-journal forward split, not one globally prospective calendar date.
-
-Reuse rights restrict training and tuning, not the private test cohort. Test
-papers from unsupported journals, omitted predictions and abstentions stay in
-the denominator as misses. The production model and previous scope matcher use
-the same held-out queries. The report includes journal-weighted and paper-weighted
-top-1, top-5, top-10 recovery, reciprocal rank, available article-type strata,
-source coverage, paired uncertainty estimates and predeclared quality checks.
-These metrics use published titles plus abstracts; title-only use is not the
-same benchmark. They measure recovery of one observed publishing venue, not
-all suitable alternatives or submission outcomes.
-
-The exact aggregate results are in `independent-validation.json`, whose model
-SHA-256 must match `model.json`. `validation.json` records the trainer's report.
-No synthetic test results are used as accuracy claims. Development pilots and
-engineering checks are not independent external validation. Duplicate checks
-cannot rule out paraphrases, preprint overlap, or overlap with encoder pretraining.
-
-## Privacy And Hosting
-
-Manuscript text and its query vector stay in the current tab's memory. They are
-not uploaded, saved in browser storage, sent to analytics, included in shared
-URLs, or exported in downloaded HTML. Clear, Reset, reload and leaving the
-document discard transient application state; this is not a forensic secure-memory
-erasure guarantee. Installed browser extensions remain outside the application's
-control. Model and public-reference files may be cached and do not contain user text.
-
-Inference runs in a terminable local browser worker. Model requests are fixed
-same-origin static GETs without manuscript text, query parameters or credentials.
-Shared visitor analytics is separate and never receives manuscript information.
-Standalone file copies cannot run the hosted worker/index and disclose that limit.
-
-## Reproduction
-
-Use the local collection, training and evaluation scripts in the source workspace:
-`journal_match_research/collect_corpus.py`, `journal_match_model_train.mjs`,
-`journal_match_evaluate.mjs`, and `build_journal_match_browser.mjs`. Keep frozen
-corpora and embedding caches outside the publishing folder. Rebuild the HTML only
-after the exact model has been independently evaluated. The build rejects a stale
-evaluation hash. Never refit held-out papers into the published retrieval index.
-
-Source documentation: [Europe PMC API](https://europepmc.org/RestfulWebService),
-[Europe PMC copyright](https://europepmc.org/copyright),
-[NLM policies](https://www.ncbi.nlm.nih.gov/home/about/policies/), and
-[Creative Commons licenses](https://creativecommons.org/share-your-work/cclicenses/).
+Public model file SHA-256: b4c4188a739ff4aad200553f6c3863b0434314966e95e0cb73032bcabc61e969.
