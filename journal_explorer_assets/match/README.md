@@ -33,10 +33,17 @@ this destroys the worker's model/WASM/input memory. There is no model or input s
 outside the worker. HTTP caches can contain static model assets, never submitted text.
 Browser reclamation timing is implementation-dependent; no promise of secure byte erasure.
 
-The parent embeds `journal_match_vectors.json` in `match-vectors-data`. Its shape is
-`{ model, dimension, documents: [{ journal, vector }], ...provenance }`.
-Convert `documents` into the engine's journal-keyed map if needed. The parent owns
-shell/controller/build integration and live-browser validation.
+The publication-trained matcher uses `corpus/model.json` and `corpus/vectors.i8`.
+The parent verifies the manifest against the HTML's SHA-256, streams responses
+with size limits, verifies the vector hash, and validates the schema before ranking.
+Only static public reference files are fetched. `corpus/independent-validation.json`
+contains aggregate evaluation, tied to the exact deployed manifest hash.
+See `corpus/MODEL_CARD.md` for sampling, learning, evaluation, and limitations.
+
+The older `journal_match_vectors.json` remains an archived scope-matcher baseline.
+It is not the new publication-trained journal model. A failed model load offers
+basic keyword scope search only through an explicit user action, never a silent
+fallback presented as learned matching.
 
 ## Model And Algorithm
 
@@ -51,12 +58,13 @@ shell/controller/build integration and live-browser validation.
 - Tokenizer: @huggingface/tokenizers 0.2.0, Apache-2.0;
   bundled template dependency @huggingface/jinja 0.5.10, MIT.
 
-`embedding.mjs` is shared by worker queries and catalog generation. It tokenizes the
+`embedding.mjs` is shared by worker queries and build-time embeddings. It tokenizes the
 entire text without truncation, uses 224-token windows with 32-token overlap, adds
 the model's CLS/SEP tokens, attention-mask mean-pools each window, averages chunk
 vectors weighted by newly covered tokens, then L2-normalizes. Even an unusually
-dense 12,302-character input is processed completely. Six-significant-digit catalog
-vectors use the same algorithm and model, with CPU inference during the build;
+dense 12,302-character input is processed completely. The archived scope vectors
+and the fitted model's per-row int8 vectors use this same encoding algorithm,
+with CPU inference during the build;
 browser inference explicitly selects WASM, one thread, no WebGPU or proxy worker.
 Native CPU and WASM may differ slightly in floating point/quantization results.
 
@@ -67,7 +75,7 @@ strings and redirects, strips credentials and caller-controlled headers, and nev
 contains manuscript data. Diagnostic output is suppressed in the worker; outward
 errors/progress contain generic text only. No service worker is installed.
 
-## Rebuilding
+## Rebuilding The Runtime And Archived Baseline
 
 Use a temporary build-only dependency directory, outside the published assets:
 
@@ -89,6 +97,10 @@ eligibility fields so the engine can emit their unchanged scope text too. All 46
 currently eligible profiles are checked against the unmodified engine output.
 These five extra archival vectors do not change the live ranking exclusions.
 No app shell, controller, or R build file is modified by these helpers.
+These commands rebuild the runtime and old scope baseline, not the fitted
+published-paper model. The latter uses the separate collection, training and
+independent evaluation pipeline documented in `corpus/MODEL_CARD.md`; raw corpora
+and test vectors must remain outside the published asset directory.
 After changes to files under `match/`, refresh hashes with
 `node journal_match_runtime.mjs --manifest-only`.
 To rebuild just the browser library from the pinned dependencies without downloading

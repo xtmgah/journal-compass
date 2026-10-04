@@ -45,6 +45,31 @@
   ],
   "files": [
     {
+      "path": "corpus/independent-validation.json",
+      "bytes": 1580944,
+      "sha256": "9e0279f45575f0c098ef7fa57222353f02fb7498fad7519fe8103d86f65a56d2"
+    },
+    {
+      "path": "corpus/MODEL_CARD.md",
+      "bytes": 8303,
+      "sha256": "6db1a3d9eab81f2fc2a63f54531a27ebd2e68f4522e6c229b278ba18afa3e212"
+    },
+    {
+      "path": "corpus/model.json",
+      "bytes": 18932186,
+      "sha256": "e688a9c1580f0e4764621a62e2974de1a636093da9d35b8dad9daaaf2c79dd4d"
+    },
+    {
+      "path": "corpus/validation.json",
+      "bytes": 8122990,
+      "sha256": "bf74fa8964d42fc2a9373915980e20e46838730dcb41ad77b2b141e3c8c82fd1"
+    },
+    {
+      "path": "corpus/vectors.i8",
+      "bytes": 7024128,
+      "sha256": "94880f817dd26d2f674847be175d2ced4b45762b375c10fe5e757a81ff9b40a7"
+    },
+    {
       "path": "embedding.mjs",
       "bytes": 6804,
       "sha256": "9c5c29b903545def7edc51ccfa1c92885ca80f42b1ff6bf38e196a58f86424e8"
@@ -106,8 +131,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 7124,
-      "sha256": "cb2cf64df255304ab44247b89deb78b94ee47c1bafc4412e81617bc68f7d2bf4"
+      "bytes": 7958,
+      "sha256": "c5a3953464d94b97840e4a31fc98b0f24b937416997a60184c020e5e11beb247"
     },
     {
       "path": "runtime/ort-wasm-simd-threaded.mjs",
@@ -135,5 +160,5 @@
       "sha256": "dc51602ab1bb0090cad1b06ff89929a829d52a77f5deaac94ab763801de810a7"
     }
   ],
-  "totalBytes": 38609434
+  "totalBytes": 74278819
 }

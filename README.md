@@ -115,19 +115,33 @@ acceptance are never inferred or guaranteed.
 
 ## Journal Match
 
-Journal Match compares a pasted title or abstract with the catalog's curated
-journal scopes. It offers article-format, minimum JIF, and reported first-decision
-filters, explains scope overlap, and sends selected journals directly to Compare.
-Closed titles and non-journal resources are excluded from suggestions.
+Journal Match learns journal publication profiles from a bounded sample of
+published titles and abstracts retrieved through Europe PMC. The abstract-first
+editor returns ranked journals with supporting paper citations and source
+attribution. Article-format, minimum JIF, and reported first-decision filters can
+be applied without repasting the manuscript. Selected journals go directly to
+Compare. Closed titles and non-journal resources are excluded from suggestions.
+
+The model combines a frozen sentence encoder with a journal head learned from
+licensed development papers. It is not a transformer fine-tuned on all published
+papers or a generative LLM agent. The interface labels it Experimental unless
+independent offline quality and coverage checks pass. Model coverage and measured
+top-1/5/10 recovery appear in the module, including the previous scope-matcher
+baseline. Held-out papers from unsupported journals count as misses; reuse rights
+limit public training, not the private test denominator. The 5% test partition is
+frozen before fitting, separate from 10% development validation. Date-boundary
+ties and duplicate identities are quarantined. Sparse classes remain disclosed.
+See the [model card](journal_explorer_assets/match/corpus/MODEL_CARD.md) and
+[aggregate evaluation](journal_explorer_assets/match/corpus/independent-validation.json).
 
 The hosted edition runs a quantized sentence-embedding model on the visitor's
 device, in a dedicated browser worker. Its JavaScript, WASM, and model files are
 served from this same GitHub Pages site; there is no remote inference API or
 third-party model script. The first match downloads reusable model assets.
 If model loading fails, or the standalone HTML is opened without the companion
-assets, the bundled MiniSearch engine provides local keyword matching. The active
-method is shown rather than silently claiming semantic matching. The first
-semantic run downloads about 39 MB of reusable assets. Sourced fee and access
+assets, an explicit optional button offers basic keyword scope search. It is
+never silently presented as learned matching. First use downloads the roughly
+39 MB encoder/runtime plus the versioned reference model/index. Sourced fee and access
 guidance is shown where available; no price is inferred from missing data.
 
 Manuscript text and query embeddings are never sent to a server, written to
@@ -143,8 +157,10 @@ editorial priority, research quality, or novelty. Impact factor does not boost
 rank. Unknown article-format eligibility remains visibly unverified; only explicit
 incompatibilities are excluded. The first-decision filter uses the first sourced
 metric displayed for that journal, not a guessed peer-review duration. Definitions
-can differ between journals. English-language scope coverage and the finite
-catalog limit the suggestions, particularly for non-English or emerging topics.
+can differ between journals. The finite English-language corpus, missing
+abstracts, source licensing, uneven journal support, and emerging topics limit
+suggestions. Original publication venue is one observed label, not the only
+suitable destination. Title-only input is not the title-plus-abstract benchmark.
 
 ## Interpretation
 

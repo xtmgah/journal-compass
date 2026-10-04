@@ -21,3 +21,11 @@ Journal Match additionally uses same-origin, separately hosted model/runtime
 assets under `journal_explorer_assets/match/`. Their pinned versions, source
 revisions, integrity hashes and licenses are recorded in that directory's
 `manifest.json` and `licenses/` folder. These assets do not contain manuscripts.
+
+The published-paper reference index under `journal_explorer_assets/match/corpus/`
+is separate from the pretrained encoder. Each indexed paper retains its source,
+author attribution, explicit reuse license, and a modification notice describing
+conversion to embeddings and fitted journal representations. Raw abstracts and
+private held-out test records are not distributed. Refer to the model card and
+individual source records; software licenses do not override source-data rights.
+Europe PMC and NLM do not endorse this tool.
