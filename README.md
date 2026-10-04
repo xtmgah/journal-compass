@@ -88,7 +88,7 @@ Science calls and two eligible-journal audits. Expired September deadlines are
 removed rather than carried forward. One new call is restricted to commissioned contributions,
 which is stated on its visible status label; contact the editors before submitting.
 
-The Calls for papers module follows Explore in the main navigation. It contains
+The Calls for papers module follows Journal Match in the main navigation. It contains
 official, source-backed calls grouped by journal, with topic search, deadline
 filters, a comparison-shortlist filter, journal ordering and CSV export. Large
 groups can be expanded without excluding their calls from search or exports.
@@ -114,6 +114,24 @@ collections are listed under each participating eligible journal. Fees and
 acceptance are never inferred or guaranteed.
 
 ## Journal Match
+
+The navigation order is Compare, Explore, Journal Match, Calls for papers, and
+Data & sources. The October 4 interface uses a compact abstract editor, visible
+local-only privacy information, and a restrained system-font theme. A separate
+"Check a specific journal" panel exposes its actual training support and nearest
+available indexed papers, even when it is absent from the shortlist. This panel
+does not boost that journal, claim a fit probability, or change recommendations.
+Its derived evidence is cleared and excluded from shared/downloaded copies just
+like the main results.
+
+The model remains Experimental. The October 4 audit found just 90 training
+references for Nature Communications, with substantial date clustering. Its
+previously frozen test subset recovered the publication venue in only 2 of 8
+top-ten lists; that small sample is diagnostic, not a precise journal-wide
+accuracy estimate. A separate 40-journal development pilot did not establish
+an improvement from replacing MiniLM with BGE-small. No new model or claimed
+accuracy improvement is included in the interface update. No paid API or
+server-side manuscript processing has been introduced.
 
 Journal Match learns journal publication profiles from a bounded sample of
 published titles and abstracts retrieved through Europe PMC. The abstract-first
