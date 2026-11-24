@@ -46,28 +46,28 @@
   "files": [
     {
       "path": "corpus/independent-validation.json",
-      "bytes": 8471,
-      "sha256": "31a3384e713150d8f5322debaa8ff78dd0b0abbff1a59a6381aa8efb532c691f"
+      "bytes": 637441,
+      "sha256": "15a70d765827ba0f6673350f35dba165abee727939e7b1d58f3b097f7d79004d"
     },
     {
       "path": "corpus/MODEL_CARD.md",
-      "bytes": 4169,
-      "sha256": "50cfe6382349b5215c1ed0fbba6a4e596e3f3983e6e578e13caf5ffcec1c8435"
+      "bytes": 6444,
+      "sha256": "ef325a5c5c550b844289a35aae1eba47d261b8336e17bc62daf2ffb05a0d87a4"
     },
     {
       "path": "corpus/model.json",
-      "bytes": 74816741,
-      "sha256": "b4c4188a739ff4aad200553f6c3863b0434314966e95e0cb73032bcabc61e969"
+      "bytes": 82519395,
+      "sha256": "abcb4bdd7228e455e96f39a4f308c691bb3f666a37daec94d1eba3273b980e0d"
     },
     {
       "path": "corpus/validation.json",
-      "bytes": 8280,
-      "sha256": "14974b4c4c9e683e1a437fd72ef58bb8bebe22093e96215c6699293e2c27b0aa"
+      "bytes": 13802,
+      "sha256": "b2fe4cececfc38a6d90fa9f9d22ebd869e0d1ddbde85af11b08b999a4e9a5351"
     },
     {
       "path": "corpus/vectors.i8",
-      "bytes": 25765632,
-      "sha256": "d7d94895fb4785c74c7c786df4d621c0d98dbe266ad54c2525039de794018884"
+      "bytes": 28894080,
+      "sha256": "99c871f8d65c570f88ed9df932f4abaf7d66f1957fba48b8b515bd306f060856"
     },
     {
       "path": "embedding.mjs",
@@ -160,5 +160,5 @@
       "sha256": "dc51602ab1bb0090cad1b06ff89929a829d52a77f5deaac94ab763801de810a7"
     }
   ],
-  "totalBytes": 139213561
+  "totalBytes": 150681430
 }

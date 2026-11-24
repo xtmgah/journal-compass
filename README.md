@@ -28,9 +28,12 @@ legacy filter links, source-aware sorting and mobile controls have been reviewed
 Local previews read shared analytics without recording visits; statistics refresh
 only reads totals.
 
-This is a catalog/UI update, **not model retraining**. Journal Match retains its
-429 trained journal profiles and frozen benchmark. New titles do not automatically
-gain trained profiles, complete impact histories, paper-output counts or timing
+The subsequent November 24 retraining checks all 502 catalog journals and fits
+**226,693 eligible papers across 466 journals**, compared with the preceding
+198,872-paper, 429-journal model. The other **36 journals remain unsupported**
+under the current indexed-source and documented-reuse policy; absence from this
+model does not imply that a journal has no published papers. New catalog entries
+do not automatically gain impact histories, paper-output counts or timing
 samples. Eight newly eligible titles have no calls audit yet and remain labeled
 not audited. Calls are dated source snapshots, with elapsed deadlines removed and
 stale status clearly marked. The November build retains 5,207 annual JIF values
@@ -143,8 +146,8 @@ acceptance are never inferred or guaranteed.
 
 ## Journal Match
 
-The navigation order is Compare, Explore, Journal Match, Calls for papers, and
-Data & sources. The October 4 interface uses a compact abstract editor, visible
+The default page is Home, followed by Compare, Explore, Journal Match, Calls for
+papers, and Data & sources. The interface uses a compact abstract editor, visible
 local-only privacy information, and a restrained system-font theme. A separate
 "Check a specific journal" panel exposes its actual training support and nearest
 available indexed papers, even when it is absent from the shortlist. This panel
@@ -152,33 +155,52 @@ does not boost that journal, claim a fit probability, or change recommendations.
 Its derived evidence is cleared and excluded from shared/downloaded copies just
 like the main results.
 
-The October 4 expanded acquisition contains 357,446 abstract-bearing records
-across 441 journals, including 5,995 from Nature Communications. It queried
-verified ISSNs for 2021 through October 3, 2026, with up to 1,000 newest OA-indexed
-papers per journal/year. This is a bounded convenience sample, not all published
-papers; OA status alone does not establish reuse permission. The model card
-records the final eligible training count, representative evidence-index size,
-and held-out results. Full training counts are distinct from downloadable
-reference counts. No paid API or server-side manuscript processing is used.
+The November 24 acquisition collected 103,861 records in four declared Europe
+PMC passes: recent papers across the catalog, older papers for 73 previously
+unsupported journals, deeper monthly sampling of 14 multidisciplinary journals,
+and verified identifier corrections. Together with the retained original and
+October sources, there are 529,099 raw records before global duplicate and
+eligibility checks. Acquisition retains all rights classes; only documented
+eligible reuse rights permit public model fitting. These are bounded, indexed
+English-language samples, not a census of published abstracts. The older October
+pass used OA-indexed records; OA status alone never establishes reuse permission.
 
-The released model fits 198,872 eligible training papers across 429 journals,
-up from 16,714 papers across 422 journals. Nature Communications contributes
-3,695 training papers, up from 90. The browser index contains 65,323 representative
-paper citations; all eligible training papers contributed to the fitted profiles.
+The released model fits **226,693 papers across 466 of 502 journals**. Nature
+Communications contributes **5,914 training papers**, up from 3,695. Its browser
+evidence index contains 72,678 representative paper citations across all trained
+journals; this smaller download is not the training-corpus size. The sentence
+encoder stays frozen. Validation selects a generic size-balanced prototype
+model, with no special ranking boost for any named journal. No paid API or
+server-side manuscript processing is used.
 
-On the same 16,309 fresh held-out papers across 356 journals, equal-journal
-top-five recovery increased from 43.68% to 48.12% and top-ten recovery from
-55.64% to 59.96%. Paper-weighted top-five recovery increased from 32.74% to
-39.42%. Nature Communications top-five recovery increased from 20.55% to 26.37%
-on 292 held-out papers, so broad multidisciplinary venues remain difficult.
-These measure recovery of the actual publication venue, not acceptance or the
-only appropriate submission destination. The older inspected regression set
-had nearly unchanged equal-journal top-five recovery (41.63% to 41.53%).
+Both versions were evaluated on the same **3,812 newly held-out papers across
+238 journals**, including **252 Nature Communications papers**. All prior test,
+validation and quarantined components remain protected. A separate 3,033-paper
+eligible validation set selected the model before the final test was opened.
 
-Readiness remains Experimental: the fresh test covers 75.9% of catalog journals,
-only 49.5% meet the 30-training/5-test-paper support threshold, and no verified
-component ablation was run. More data improved this benchmark but did not meet
-all of the predeclared readiness checks or establish ChatGPT-level performance.
+| Held-out measure | Previous model | November model |
+| --- | ---: | ---: |
+| Title + abstract: equal-journal top-five recovery | 36.96% | 42.37% |
+| Title + abstract: paper-weighted top-five recovery | 12.30% | 32.63% |
+| Title + abstract: Nature Communications top-five recovery | 19.05% | 27.38% |
+| Abstract only: equal-journal top-five recovery | 37.84% | 41.90% |
+| Abstract only: Nature Communications top-five recovery | 18.25% | 26.59% |
+
+For Nature Communications, the paired top-five improvement is 8.33 percentage
+points in both modes. The within-journal paired bootstrap 95% interval is
+3.97 to 12.70 points with title + abstract, and 4.37 to 12.70 with abstract only.
+The selected-journal panel shows its own sample size, both models' scores and
+uncertainty. Journals without test papers show unavailable results, not zero
+accuracy. Most additional top-five hits (81.7%) occur in newly supported journals,
+so gains are not solely better ranking within existing coverage. Comparisons with
+older benchmark percentages are invalid because the sampled papers differ.
+
+These tests measure recovery of the actual publication venue, not acceptance,
+research quality, or the only suitable submission destination. Broad journals
+remain difficult. Readiness stays **Experimental**: only 47.4% of catalog journals
+have fresh test papers, 11.4% meet the 30-training/5-test-paper support threshold,
+and no verified component ablation was run. Improved results on this sample do
+not establish broad superiority or ChatGPT-level performance.
 
 Journal results have separate bordered cards. The interactive match map plots
 match rank on the horizontal axis and annual JIF on the vertical axis. Select a
@@ -201,12 +223,12 @@ papers or a generative LLM agent. The interface labels it Experimental unless
 recorded offline quality and coverage checks pass. Model coverage and measured
 top-1/5/10 venue recovery appear in the module, comparing the previous and expanded
 published-paper models on the same fresh held-out papers. Unsupported journals
-and abstentions count as misses. The new test covers the acquired OA sample,
-including records that cannot be used for public model fitting; it is not a
-paywalled-literature benchmark. A 5% test target is frozen before fitting,
+and abstentions count as misses. The new test covers the bounded all-rights
+acquisition, including records ineligible for public model fitting; it is not a
+representative benchmark of all literature. A 5% test target is frozen before fitting,
 separate from 10% development validation. Date-boundary ties and duplicate
 identities are quarantined, and historical holdouts remain protected. The older,
-previously inspected test is reported separately as regression evidence only.
+previously inspected tests remain protected and are not reused as fresh evidence.
 Sparse classes remain disclosed. The compatibility report filename below does
 not mean the release adapter independently reran the experiment.
 See the [model card](journal_explorer_assets/match/corpus/MODEL_CARD.md) and
@@ -238,7 +260,8 @@ metric displayed for that journal, not a guessed peer-review duration. Definitio
 can differ between journals. The finite English-language corpus, missing
 abstracts, source licensing, uneven journal support, and emerging topics limit
 suggestions. Original publication venue is one observed label, not the only
-suitable destination. Title-only input is not the title-plus-abstract benchmark.
+suitable destination. Title-only input has not been separately validated; the
+abstract-only experiment uses the same frozen papers and unchanged model.
 
 ## Interpretation
 
