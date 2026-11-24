@@ -8,7 +8,35 @@ embedded; the core explorer requires no R installation or application server.
 Shared analytics uses the separate service described below. Official source links
 and shared statistics require internet access.
 
-## September 2026 catalog
+## Catalog Updates
+
+### November 24, 2026 update
+
+The site now opens on a minimal, centered Home search with top-level module icons.
+Search accepts journal titles, sourced abbreviations, recorded aliases, ISSNs and
+topics. The catalog now contains **502 journals**, including **33 new titles** in
+oncology, genetics, cell biology/immunology, computational methods and epidemiology.
+**490 titles have sourced NLM abbreviations**; the remaining 12 are explicitly
+unverified. Abbreviation sources are linked in journal details and the sortable
+catalog, and included in CSV exports. Exact ISSN/title identity checks avoid
+confusing companion journals or successor titles.
+
+The Home screen does not render the hidden comparison/catalog tables or load
+matching-model assets. Large chart datasets are parsed on first use; the unused
+legacy scope-vector payload has been removed. Keyboard search, empty results,
+legacy filter links, source-aware sorting and mobile controls have been reviewed.
+Local previews read shared analytics without recording visits; statistics refresh
+only reads totals.
+
+This is a catalog/UI update, **not model retraining**. Journal Match retains its
+429 trained journal profiles and frozen benchmark. New titles do not automatically
+gain trained profiles, complete impact histories, paper-output counts or timing
+samples. Eight newly eligible titles have no calls audit yet and remain labeled
+not audited. Calls are dated source snapshots, with elapsed deadlines removed and
+stale status clearly marked. The November build retains 5,207 annual JIF values
+across 459 journals; missing values are not estimated.
+
+The September figures below describe that earlier snapshot.
 
 The catalog contains 469 journals, including Cancer Gene Therapy and the Wiley
 Advanced life and health sciences additions below. Both requested Google Scholar profiles were
